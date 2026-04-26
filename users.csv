@@ -1,0 +1,6 @@
+username,email,password,role
+alice,alice@example.com,password123,manager
+bob,bob@example.com,password123,member
+charlie,charlie@example.com,password123,member
+diana,diana@example.com,password123,member
+evan,evan@example.com,password123,member
