@@ -33,7 +33,7 @@ The project follows a modular structure based on **Clean Architecture**:
 ## Getting Started
 
 ### Prerequisites
-- [Go 1.25+](https://golang.org/dl/)
+- [Go 1.24+](https://golang.org/dl/)
 - [Docker & Docker Compose](https://www.docker.com/products/docker-desktop)
 
 ### 1. Setup Infrastructure
