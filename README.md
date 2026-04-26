@@ -1,33 +1,86 @@
-# 🔥 Microservices Challenge: User, Team & Asset Management
+# Seta Training: Microservices & Domain Concurrency
 
-## 🎯 Project Intention & Introduction
-Welcome to the Capstone Mini-Project for the 2026 Golang Intern Course! 
+This repository contains a robust backend system built for managing Users, Teams, and Digital Assets, implementing Clean Architecture and modern observability practices.
 
-The goal of this project is to evaluate your system design, coding, and problem-solving skills in building a robust backend system. Unlike standard tutorials, **this project is technology-agnostic.** While the core language is Go (to align with the course), you have the absolute freedom to choose your preferred API protocols (REST, GraphQL, gRPC), databases (SQL vs. NoSQL), frameworks, and infrastructure tools. 
+---
 
-You are expected to research your choices, justify your trade-offs, and implement best practices for a microservices architecture. The project will be released in **3 progressive stages**, allowing you to continuously build, iterate, and scale the system alongside the course syllabus.
+## Tech Stack & Rationale
 
-> 💡 *"Every technical decision should be a deliberate trade-off, balancing the pragmatism of today with the scale of tomorrow."*
+| Layer | Technology | Rationale | Trade-offs |
+| :--- | :--- | :--- | :--- |
+| **Core** | **Go (Golang)** | Designed for high concurrency (goroutines) and cloud-native performance. | More boilerplate (error handling) than high-level languages. |
+| **Framework**| **Gin** | Lightweight, high-performance, and provides a great developer experience. | Not part of the standard library. |
+| **Database** | **PostgreSQL** | Reliable relational storage for users, teams, and asset hierarchies. | Complex schema migrations compared to NoSQL. |
+| **Auth** | **JWT + Bcrypt** | Stateless authentication and secure password hashing. | Revoking individual tokens requires a blacklist mechanism (Redis). |
+| **Docs** | **Swagger (Swaggo)** | Automated API documentation generation from code comments. | Maintenance overhead for keeping comments in sync. |
+| **Monitoring** | **Prometheus** | Real-time metrics collection via the `/metrics` endpoint. | Time-series data can grow quickly in storage. |
+| **Logging** | **Loki + Promtail** | Centralized, cost-effective log aggregation with structured JSON. | Requires running additional background containers. |
+| **Visualization**| **Grafana** | Unified dashboards for metrics and log exploration. | Initial dashboard setup overhead. |
 
-## 👩🏻‍💻 System Overview
-You are tasked with building a microservices-based system to manage users, teams, and digital assets. 
-* **Users** can have varying roles (Manager or Member).
-* **Managers** can form teams and manage personnel.
-* **All Users** can manage, organize, and share digital assets (folders & notes) with granular access control.
+---
 
-## 📋 General Requirements
+## System Architecture (Clean Architecture)
 
-### 1. General Engineering Standards
-* **Authentication & Authorization:** Secure all endpoints and validate user roles before executing sensitive actions.
-* **Clean Architecture:** Structure your code utilizing separation of concerns (e.g., handlers, services, repositories).
-* **Error Handling:** Ensure graceful degradation and use appropriate HTTP/RPC status codes.
+The project follows a modular structure based on **Clean Architecture**:
+- `domain/`: Core business entities and interfaces.
+- `usecase/`: Pure business logic (orchestrating repositories and domain rules).
+- `repository/`: Data persistence implementations (GORM/PostgreSQL).
+- `delivery/`: External entry points (Gin HTTP handlers & Middleware).
+- `infrastructure/`: External tools (Database connection, Logger setup).
 
-### 2. Technical Documentation
-* You must prepare a **500–800 word document** describing the tech stack used in your project.
-* Detail why you chose your specific database, message queue, or API protocol. What were the trade-offs, and how do they benefit your specific implementation?
+---
 
-### 3. Final Presentation (Demo & Future Pitch)
-* You will participate in a live **3-minute presentation**.
-* Pitch **one major future improvement** for your system. If this were a real startup, what is the next technical bottleneck you would hit, and how would you re-architect the system to solve it?
+## Getting Started
 
-*(Note: The detailed technical specifications for the project are divided into Stage 1, Stage 2, and Stage 3 documents. All submissions must be in English).*
+### Prerequisites
+- [Go 1.25+](https://golang.org/dl/)
+- [Docker & Docker Compose](https://www.docker.com/products/docker-desktop)
+
+### 1. Setup Infrastructure
+Start the database and observability stack (PostgreSQL, Prometheus, Loki, Grafana):
+```bash
+docker compose up -d
+```
+
+### 2. Run the Application
+```bash
+go run cmd/api/main.go
+```
+The server will start on `http://localhost:3000`.
+
+---
+
+## Observability & API Documentation
+
+- **Swagger UI:** [http://localhost:3000/swagger/index.html](http://localhost:3000/swagger/index.html)
+- **Grafana (Dashboards):** [http://localhost:3001](http://localhost:3001) (User: `admin` / Pass: `admin`)
+- **Prometheus:** [http://localhost:9090](http://localhost:9090)
+- **Loki (Logs):** Queryable via the **Explore** tab in Grafana using datasource `Loki`.
+
+---
+
+## Testing the API
+
+### Automated Test Script
+We've provided a script to test the core flows (Register -> Login -> Team Mgmt -> Assets):
+```bash
+./test_api.sh
+```
+
+### Concurrency Challenge: Bulk User Import
+To test high-speed concurrent user creation, upload a CSV file to the import endpoint:
+```bash
+curl -X POST http://localhost:3000/api/v1/users/import \
+  -H "Authorization: Bearer <TOKEN>" \
+  -F "file=@users.csv"
+```
+*Note: The system uses a **Worker Pool** of goroutines to process rows in parallel.*
+
+---
+
+## Roadmap & Stages
+
+- `[x]` **Stage 1:** Identity & Teams (Auth, RBAC, Team Management).
+- `[x]` **Stage 2:** Domain & Concurrency (Folders, Notes, Sharing, Bulk Import).
+- `[x]` **Stage 3:** Observability (Metrics, Logging, Visualization).
+- `[ ]` **Stage 4 (Next):** Scaling (Message Queues, Redis Caching).
