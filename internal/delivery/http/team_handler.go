@@ -37,6 +37,17 @@ func (h *TeamHandler) getRequesterID(c *gin.Context) uint {
 	return uint(idFloat.(float64))
 }
 
+// CreateTeam godoc
+// @Summary Create a new team
+// @Description Allows a manager to create a new team
+// @Tags teams
+// @Security Bearer
+// @Accept json
+// @Produce json
+// @Param request body domain.CreateTeamRequest true "Team details"
+// @Success 201 {object} domain.Team
+// @Failure 400 {object} map[string]string
+// @Router /teams [post]
 func (h *TeamHandler) CreateTeam(c *gin.Context) {
 	var req domain.CreateTeamRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -55,6 +66,18 @@ func (h *TeamHandler) CreateTeam(c *gin.Context) {
 	c.JSON(http.StatusCreated, team)
 }
 
+// AddMember godoc
+// @Summary Add a member to a team
+// @Description Allows a team manager to add a member to their team
+// @Tags teams
+// @Security Bearer
+// @Accept json
+// @Produce json
+// @Param id path int true "Team ID"
+// @Param request body map[string]int true "User ID"
+// @Success 200
+// @Failure 400 {object} map[string]string
+// @Router /teams/{id}/members [post]
 func (h *TeamHandler) AddMember(c *gin.Context) {
 	teamID, err := strconv.ParseUint(c.Param("id"), 10, 32)
 	if err != nil {
@@ -80,6 +103,16 @@ func (h *TeamHandler) AddMember(c *gin.Context) {
 	c.Status(http.StatusOK)
 }
 
+// RemoveMember godoc
+// @Summary Remove a member from a team
+// @Description Allows a team manager to remove a member from their team
+// @Tags teams
+// @Security Bearer
+// @Param id path int true "Team ID"
+// @Param userId path int true "User ID to remove"
+// @Success 200
+// @Failure 400 {object} map[string]string
+// @Router /teams/{id}/members/{userId} [delete]
 func (h *TeamHandler) RemoveMember(c *gin.Context) {
 	teamID, err := strconv.ParseUint(c.Param("id"), 10, 32)
 	if err != nil {
@@ -102,6 +135,18 @@ func (h *TeamHandler) RemoveMember(c *gin.Context) {
 	c.Status(http.StatusOK)
 }
 
+// AddManager godoc
+// @Summary Add a manager to a team
+// @Description Allows the main manager to add another manager to the team
+// @Tags teams
+// @Security Bearer
+// @Accept json
+// @Produce json
+// @Param id path int true "Team ID"
+// @Param request body map[string]int true "User ID"
+// @Success 200
+// @Failure 400 {object} map[string]string
+// @Router /teams/{id}/managers [post]
 func (h *TeamHandler) AddManager(c *gin.Context) {
 	teamID, err := strconv.ParseUint(c.Param("id"), 10, 32)
 	if err != nil {
@@ -127,6 +172,16 @@ func (h *TeamHandler) AddManager(c *gin.Context) {
 	c.Status(http.StatusOK)
 }
 
+// RemoveManager godoc
+// @Summary Remove a manager from a team
+// @Description Allows the main manager to remove another manager from the team
+// @Tags teams
+// @Security Bearer
+// @Param id path int true "Team ID"
+// @Param userId path int true "User ID to remove"
+// @Success 200
+// @Failure 400 {object} map[string]string
+// @Router /teams/{id}/managers/{userId} [delete]
 func (h *TeamHandler) RemoveManager(c *gin.Context) {
 	teamID, err := strconv.ParseUint(c.Param("id"), 10, 32)
 	if err != nil {

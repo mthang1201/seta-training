@@ -40,6 +40,17 @@ func (h *AssetHandler) getRequesterID(c *gin.Context) uint {
 	return uint(idFloat.(float64))
 }
 
+// CreateFolder godoc
+// @Summary Create a new folder
+// @Description Create a new digital folder for assets
+// @Tags assets
+// @Security Bearer
+// @Accept json
+// @Produce json
+// @Param request body map[string]string true "Folder details"
+// @Success 201 {object} domain.Folder
+// @Failure 400 {object} map[string]string
+// @Router /assets/folders [post]
 func (h *AssetHandler) CreateFolder(c *gin.Context) {
 	var req struct {
 		Name string `json:"name" binding:"required"`
@@ -60,6 +71,16 @@ func (h *AssetHandler) CreateFolder(c *gin.Context) {
 	c.JSON(http.StatusCreated, folder)
 }
 
+// GetFolder godoc
+// @Summary Get folder details
+// @Description Retrieve a folder and its notes, checking access permissions
+// @Tags assets
+// @Security Bearer
+// @Produce json
+// @Param id path int true "Folder ID"
+// @Success 200 {object} domain.Folder
+// @Failure 400,403 {object} map[string]string
+// @Router /assets/folders/{id} [get]
 func (h *AssetHandler) GetFolder(c *gin.Context) {
 	folderID, err := strconv.ParseUint(c.Param("id"), 10, 32)
 	if err != nil {
@@ -78,6 +99,18 @@ func (h *AssetHandler) GetFolder(c *gin.Context) {
 	c.JSON(http.StatusOK, folder)
 }
 
+// CreateNote godoc
+// @Summary Create a note in a folder
+// @Description Create a new note within a specified folder
+// @Tags assets
+// @Security Bearer
+// @Accept json
+// @Produce json
+// @Param id path int true "Folder ID"
+// @Param request body map[string]string true "Note details"
+// @Success 201 {object} domain.Note
+// @Failure 400,403 {object} map[string]string
+// @Router /assets/folders/{id}/notes [post]
 func (h *AssetHandler) CreateNote(c *gin.Context) {
 	folderID, err := strconv.ParseUint(c.Param("id"), 10, 32)
 	if err != nil {
@@ -105,6 +138,16 @@ func (h *AssetHandler) CreateNote(c *gin.Context) {
 	c.JSON(http.StatusCreated, note)
 }
 
+// GetNote godoc
+// @Summary Get note details
+// @Description Retrieve a specific note, checking access permissions
+// @Tags assets
+// @Security Bearer
+// @Produce json
+// @Param id path int true "Note ID"
+// @Success 200 {object} domain.Note
+// @Failure 400,403 {object} map[string]string
+// @Router /assets/notes/{id} [get]
 func (h *AssetHandler) GetNote(c *gin.Context) {
 	noteID, err := strconv.ParseUint(c.Param("id"), 10, 32)
 	if err != nil {
@@ -123,6 +166,18 @@ func (h *AssetHandler) GetNote(c *gin.Context) {
 	c.JSON(http.StatusOK, note)
 }
 
+// UpdateNote godoc
+// @Summary Update a note
+// @Description Update the title or content of an existing note
+// @Tags assets
+// @Security Bearer
+// @Accept json
+// @Produce json
+// @Param id path int true "Note ID"
+// @Param request body map[string]string true "Note updates"
+// @Success 200 {object} domain.Note
+// @Failure 400,403 {object} map[string]string
+// @Router /assets/notes/{id} [put]
 func (h *AssetHandler) UpdateNote(c *gin.Context) {
 	noteID, err := strconv.ParseUint(c.Param("id"), 10, 32)
 	if err != nil {
@@ -150,6 +205,19 @@ func (h *AssetHandler) UpdateNote(c *gin.Context) {
 	c.JSON(http.StatusOK, note)
 }
 
+// ShareAsset godoc
+// @Summary Share an asset
+// @Description Share a folder or note with another user
+// @Tags assets
+// @Security Bearer
+// @Accept json
+// @Produce json
+// @Param type path string true "Asset Type (folder/note)"
+// @Param id path int true "Asset ID"
+// @Param request body map[string]interface{} true "Sharing details"
+// @Success 200
+// @Failure 400,403 {object} map[string]string
+// @Router /assets/{type}/{id}/share [post]
 func (h *AssetHandler) ShareAsset(c *gin.Context) {
 	assetType := domain.AssetType(c.Param("type"))
 	if assetType != domain.AssetFolder && assetType != domain.AssetNote {
@@ -189,6 +257,17 @@ func (h *AssetHandler) ShareAsset(c *gin.Context) {
 	c.Status(http.StatusOK)
 }
 
+// RevokeAccess godoc
+// @Summary Revoke access to an asset
+// @Description Revoke a user's access to a folder or note
+// @Tags assets
+// @Security Bearer
+// @Param type path string true "Asset Type (folder/note)"
+// @Param id path int true "Asset ID"
+// @Param targetUserId path int true "User ID to revoke"
+// @Success 200
+// @Failure 400,403 {object} map[string]string
+// @Router /assets/{type}/{id}/share/{targetUserId} [delete]
 func (h *AssetHandler) RevokeAccess(c *gin.Context) {
 	assetType := domain.AssetType(c.Param("type"))
 	if assetType != domain.AssetFolder && assetType != domain.AssetNote {

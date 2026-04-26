@@ -9,7 +9,30 @@ import (
 	"github.com/seta-training/core/internal/infrastructure"
 	"github.com/seta-training/core/internal/repository"
 	"github.com/seta-training/core/internal/usecase"
+	_ "github.com/seta-training/core/docs"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
+
+// @title Seta Training API
+// @version 1.0
+// @description This is a sample server for a microservices challenge.
+// @termsOfService http://swagger.io/terms/
+
+// @contact.name API Support
+// @contact.url http://www.swagger.io/support
+// @contact.email support@swagger.io
+
+// @license.name Apache 2.0
+// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+
+// @host localhost:3000
+// @BasePath /api/v1
+
+// @securityDefinitions.apikey Bearer
+// @in header
+// @name Authorization
+
 
 func main() {
 	// 1. Load config
@@ -39,6 +62,10 @@ func main() {
 	deliveryHttp.NewUserHandler(api, userUseCase, cfg)
 	deliveryHttp.NewTeamHandler(api, teamUseCase, cfg)
 	deliveryHttp.NewAssetHandler(api, assetUseCase, cfg)
+
+	// Swagger route
+	app.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
 
 	// 7. Start server
 	log.Printf("Starting server on port %s...", cfg.Port)
