@@ -29,7 +29,7 @@ func main() {
 	// 4. Init UseCases
 	userUseCase := usecase.NewUserUseCase(userRepo, cfg)
 	teamUseCase := usecase.NewTeamUseCase(teamRepo, userRepo)
-	assetUseCase := usecase.NewAssetUseCase(assetRepo)
+	assetUseCase := usecase.NewAssetUseCase(assetRepo, teamRepo)
 
 	// 5. Init Gin App
 	app := gin.Default()
