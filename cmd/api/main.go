@@ -12,6 +12,8 @@ import (
 	_ "github.com/seta-training/core/docs"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"log/slog"
 )
 
 // @title Seta Training API
@@ -35,9 +37,14 @@ import (
 
 
 func main() {
+	// 0. Init Logger
+	infrastructure.InitLogger()
+	slog.Info("Starting application...")
+
 	// 1. Load config
 	cfg, err := config.LoadConfig()
 	if err != nil {
+		slog.Error("Failed to load config", "error", err)
 		log.Fatalf("Failed to load config: %v", err)
 	}
 
@@ -56,6 +63,12 @@ func main() {
 
 	// 5. Init Gin App
 	app := gin.Default()
+	
+	// Add Metrics Middleware
+	app.Use(deliveryHttp.MetricsMiddleware())
+
+	// Setup Prometheus Endpoint
+	app.GET("/metrics", gin.WrapH(promhttp.Handler()))
 
 	// 6. Setup Routes
 	api := app.Group("/api/v1")
@@ -68,8 +81,9 @@ func main() {
 
 
 	// 7. Start server
-	log.Printf("Starting server on port %s...", cfg.Port)
+	slog.Info("Starting server", "port", cfg.Port)
 	if err := app.Run(":" + cfg.Port); err != nil {
+		slog.Error("Server failed", "error", err)
 		log.Fatalf("Server failed: %v", err)
 	}
 }
