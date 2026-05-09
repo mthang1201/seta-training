@@ -80,6 +80,23 @@ curl -X POST http://localhost:3000/api/v1/users/import \
 
 ---
 
+## Integration Testing
+
+The repository features a robust integration test suite utilizing `testcontainers-go` to run tests against real infrastructure (PostgreSQL, Redis, RabbitMQ) without relying on mocks.
+
+### Run Tests
+```bash
+go test ./tests/integration/... -v
+```
+
+### Test Coverage Highlights
+- **Auth & Team Management:** Verifies token generation, password hashing, RBAC enforcement, and team creation logic.
+- **Domain & Concurrency:** Contains concurrency tests for the worker-pool-driven bulk CSV user import and simultaneous team member additions.
+- **Asset Management:** Validates asset creation, ACL inheritance (folder -> note sharing), and Manager Oversight logic.
+- **Observability Assertions:** Intercepts real RabbitMQ events via an ephemeral queue binding to guarantee domain events are accurately broadcast. Directly validates Redis cache-aside reads and write-through cache invalidation.
+
+---
+
 ## Roadmap & Stages
 
 - `[x]` **Stage 1:** Identity & Teams (Auth, RBAC, Team Management).
