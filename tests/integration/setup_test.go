@@ -3,6 +3,7 @@ package integration
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"fmt"
 	"log/slog"
 	"net/http"
@@ -42,6 +43,7 @@ type TestServer struct {
 	TeamRepo      domain.TeamRepository
 	AssetRepo     domain.AssetRepository
 	ConsumerCancel context.CancelFunc
+	EventCh       chan *domain.Event
 }
 
 var ts *TestServer
@@ -153,6 +155,12 @@ func setupTestServer(ctx context.Context) (*TestServer, error) {
 		return nil, fmt.Errorf("failed to start event consumer: %w", err)
 	}
 
+	eventCh, err := setupTestEventCapture(amqpConn)
+	if err != nil {
+		return nil, fmt.Errorf("failed to setup test event capture: %w", err)
+	}
+	ts.EventCh = eventCh
+
 	// 8. Initialize UseCases
 	userUseCase := usecase.NewUserUseCase(ts.UserRepo, ts.Config)
 	teamUseCase := usecase.NewTeamUseCase(ts.TeamRepo, ts.UserRepo, ts.RedisCache, publisher)
@@ -239,4 +247,80 @@ func (ts *TestServer) GenerateTestToken(userID uint, role domain.Role) string {
 
 	tokenString, _ := token.SignedString([]byte(ts.Config.JWTSecret))
 	return tokenString
+}
+
+// Event Capture Setup
+func setupTestEventCapture(conn *amqp.Connection) (chan *domain.Event, error) {
+	ch, err := conn.Channel()
+	if err != nil {
+		return nil, err
+	}
+
+	err = ch.ExchangeDeclare(
+		"team.topic",
+		"topic",
+		true, false, false, false, nil,
+	)
+	if err != nil { return nil, err }
+
+	err = ch.ExchangeDeclare(
+		"asset.topic",
+		"topic",
+		true, false, false, false, nil,
+	)
+	if err != nil { return nil, err }
+
+	q, err := ch.QueueDeclare("", false, true, true, false, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	err = ch.QueueBind(q.Name, "#", "team.topic", false, nil)
+	if err != nil { return nil, err }
+
+	err = ch.QueueBind(q.Name, "#", "asset.topic", false, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	msgs, err := ch.Consume(q.Name, "", true, false, false, false, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	eventCh := make(chan *domain.Event, 100)
+	go func() {
+		for d := range msgs {
+			var event domain.Event
+			if err := json.Unmarshal(d.Body, &event); err == nil {
+				eventCh <- &event
+			}
+		}
+	}()
+
+	return eventCh, nil
+}
+
+// Clear events between tests
+func (ts *TestServer) ClearEvents() {
+	for len(ts.EventCh) > 0 {
+		<-ts.EventCh
+	}
+}
+
+// Assert event received
+func (ts *TestServer) AssertEventReceived(t *testing.T, expectedType string) *domain.Event {
+	t.Helper()
+	timeout := time.After(2 * time.Second)
+	for {
+		select {
+		case ev := <-ts.EventCh:
+			if ev.Type == expectedType {
+				return ev
+			}
+		case <-timeout:
+			t.Errorf("timeout waiting for event: %s", expectedType)
+			return nil
+		}
+	}
 }

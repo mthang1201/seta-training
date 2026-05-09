@@ -1,269 +1,338 @@
 
-2026/05/09 19:40:01 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.929ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'manager1@test.com' ORDER BY "users"."id" LIMIT 1
+2026/05/09 20:09:45 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.857ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'manager@asset.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:09:46 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.359ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'owner@asset.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:09:46 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.347ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'other@asset.com' ORDER BY "users"."id" LIMIT 1
+[GIN] 2026/05/09 - 20:09:46 | 201 |   8.61ms |                 | POST     "/api/v1/teams/"
+[GIN] 2026/05/09 - 20:09:46 | 200 |   7.03ms |                 | POST     "/api/v1/teams/1/members"
+[GIN] 2026/05/09 - 20:09:46 | 201 |   1.54ms |                 | POST     "/api/v1/assets/folders"
+[GIN] 2026/05/09 - 20:09:48 | 201 |   5.54ms |                 | POST     "/api/v1/assets/folders/1/notes"
+[GIN] 2026/05/09 - 20:09:48 | 200 |   3.45ms |                 | GET      "/api/v1/assets/notes/1"
+
+2026/05/09 20:09:50 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/asset_repository.go:80 [35;1mrecord not found
+[0m[33m[2.260ms] [34;1m[rows:0][0m SELECT * FROM "asset_permissions" WHERE asset_type = 'note' AND asset_id = 1 AND user_id = 1 ORDER BY "asset_permissions"."id" LIMIT 1
+
+2026/05/09 20:09:50 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/asset_repository.go:80 [35;1mrecord not found
+[0m[33m[1.069ms] [34;1m[rows:0][0m SELECT * FROM "asset_permissions" WHERE asset_type = 'folder' AND asset_id = 1 AND user_id = 1 ORDER BY "asset_permissions"."id" LIMIT 1
+[GIN] 2026/05/09 - 20:09:50 | 200 |  21.03ms |                 | GET      "/api/v1/assets/notes/1"
+
+2026/05/09 20:09:50 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/asset_repository.go:80 [35;1mrecord not found
+[0m[33m[0.733ms] [34;1m[rows:0][0m SELECT * FROM "asset_permissions" WHERE asset_type = 'note' AND asset_id = 1 AND user_id = 1 ORDER BY "asset_permissions"."id" LIMIT 1
+
+2026/05/09 20:09:50 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/asset_repository.go:80 [35;1mrecord not found
+[0m[33m[0.692ms] [34;1m[rows:0][0m SELECT * FROM "asset_permissions" WHERE asset_type = 'folder' AND asset_id = 1 AND user_id = 1 ORDER BY "asset_permissions"."id" LIMIT 1
+[GIN] 2026/05/09 - 20:09:50 | 403 |   5.83ms |                 | PUT      "/api/v1/assets/notes/1"
+
+2026/05/09 20:09:50 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/asset_repository.go:80 [35;1mrecord not found
+[0m[33m[0.610ms] [34;1m[rows:0][0m SELECT * FROM "asset_permissions" WHERE asset_type = 'note' AND asset_id = 1 AND user_id = 3 ORDER BY "asset_permissions"."id" LIMIT 1
+
+2026/05/09 20:09:50 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/asset_repository.go:80 [35;1mrecord not found
+[0m[33m[0.902ms] [34;1m[rows:0][0m SELECT * FROM "asset_permissions" WHERE asset_type = 'folder' AND asset_id = 1 AND user_id = 3 ORDER BY "asset_permissions"."id" LIMIT 1
+[GIN] 2026/05/09 - 20:09:50 | 403 |   5.84ms |                 | GET      "/api/v1/assets/notes/1"
+[GIN] 2026/05/09 - 20:09:50 | 200 |   4.89ms |                 | PUT      "/api/v1/assets/notes/1"
+
+2026/05/09 20:09:52 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/asset_repository.go:61 [35;1mrecord not found
+[0m[33m[0.571ms] [34;1m[rows:0][0m SELECT * FROM "asset_permissions" WHERE asset_type = 'folder' AND asset_id = 1 AND user_id = 3 ORDER BY "asset_permissions"."id" LIMIT 1
+[GIN] 2026/05/09 - 20:09:52 | 200 |    6.6ms |                 | POST     "/api/v1/assets/folder/1/share"
+[GIN] 2026/05/09 - 20:09:54 | 200 |   8.79ms |                 | DELETE   "/api/v1/assets/folder/1/share/3"
+
+2026/05/09 20:09:54 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/asset_repository.go:80 [35;1mrecord not found
+[0m[33m[0.685ms] [34;1m[rows:0][0m SELECT * FROM "asset_permissions" WHERE asset_type = 'note' AND asset_id = 1 AND user_id = 3 ORDER BY "asset_permissions"."id" LIMIT 1
+
+2026/05/09 20:09:54 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/asset_repository.go:80 [35;1mrecord not found
+[0m[33m[2.029ms] [34;1m[rows:0][0m SELECT * FROM "asset_permissions" WHERE asset_type = 'folder' AND asset_id = 1 AND user_id = 3 ORDER BY "asset_permissions"."id" LIMIT 1
+[GIN] 2026/05/09 - 20:09:54 | 403 |   8.27ms |                 | GET      "/api/v1/assets/notes/1"
+--- FAIL: TestAssetManagementAndObservability (10.32s)
+    --- FAIL: TestAssetManagementAndObservability/Create_Folder_and_Emit_Event (2.00s)
+        asset_api_test.go:51: timeout waiting for event: ASSET_CREATED
+        asset_api_test.go:52: 
+            	Error Trace:	/Users/mthang1201/Documents/seta/seta-training/tests/integration/asset_api_test.go:52
+            	Error:      	Expected value not to be nil.
+            	Test:       	TestAssetManagementAndObservability/Create_Folder_and_Emit_Event
+    --- FAIL: TestAssetManagementAndObservability/Create_Note_and_Assert_Cache (2.01s)
+        asset_api_test.go:79: timeout waiting for event: ASSET_CREATED
+    --- FAIL: TestAssetManagementAndObservability/Owner_Updates_Note_-_Assert_Cache_Invalidation (2.01s)
+        asset_api_test.go:113: timeout waiting for event: ASSET_UPDATED
+        asset_api_test.go:114: 
+            	Error Trace:	/Users/mthang1201/Documents/seta/seta-training/tests/integration/asset_api_test.go:114
+            	Error:      	Expected value not to be nil.
+            	Test:       	TestAssetManagementAndObservability/Owner_Updates_Note_-_Assert_Cache_Invalidation
+    --- FAIL: TestAssetManagementAndObservability/Share_Folder_and_Test_ACL_Inheritance (2.01s)
+        asset_api_test.go:124: timeout waiting for event: ASSET_SHARED
+        asset_api_test.go:125: 
+            	Error Trace:	/Users/mthang1201/Documents/seta/seta-training/tests/integration/asset_api_test.go:125
+            	Error:      	Expected value not to be nil.
+            	Test:       	TestAssetManagementAndObservability/Share_Folder_and_Test_ACL_Inheritance
+    --- FAIL: TestAssetManagementAndObservability/Revoke_Access_and_Check_Cache_Invalidation (2.02s)
+        asset_api_test.go:154: timeout waiting for event: ASSET_SHARED
+        asset_api_test.go:155: 
+            	Error Trace:	/Users/mthang1201/Documents/seta/seta-training/tests/integration/asset_api_test.go:155
+            	Error:      	Expected value not to be nil.
+            	Test:       	TestAssetManagementAndObservability/Revoke_Access_and_Check_Cache_Invalidation
+
+2026/05/09 20:09:56 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[2.114ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'manager1@test.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:09:56 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.468ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'user1@test.com' ORDER BY "users"."id" LIMIT 1
+[GIN] 2026/05/09 - 20:09:56 | 201 |   6.04ms |                 | POST     "/api/v1/teams/"
+[GIN] 2026/05/09 - 20:09:56 | 403 | 17.041µs |                 | POST     "/api/v1/teams/"
+[GIN] 2026/05/09 - 20:09:56 | 400 | 18.209µs |                 | POST     "/api/v1/teams/"
+[GIN] 2026/05/09 - 20:09:56 | 400 |     13µs |                 | POST     "/api/v1/teams/"
+[GIN] 2026/05/09 - 20:09:56 | 401 | 12.917µs |                 | POST     "/api/v1/teams/"
+
+2026/05/09 20:09:56 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.557ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'concurrent_manager@test.com' ORDER BY "users"."id" LIMIT 1
+[GIN] 2026/05/09 - 20:09:56 | 201 |   4.59ms |                 | POST     "/api/v1/teams/"
 
-2026/05/09 19:40:02 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.341ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'user1@test.com' ORDER BY "users"."id" LIMIT 1
-[GIN] 2026/05/09 - 19:40:02 | 201 |    6.1ms |                 | POST     "/api/v1/teams/"
-[GIN] 2026/05/09 - 19:40:02 | 403 | 20.667µs |                 | POST     "/api/v1/teams/"
-[GIN] 2026/05/09 - 19:40:02 | 400 | 17.333µs |                 | POST     "/api/v1/teams/"
-[GIN] 2026/05/09 - 19:40:02 | 400 | 12.584µs |                 | POST     "/api/v1/teams/"
-[GIN] 2026/05/09 - 19:40:02 | 401 |   55.5µs |                 | POST     "/api/v1/teams/"
+2026/05/09 20:09:56 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.663ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member0@test.com' ORDER BY "users"."id" LIMIT 1
 
-2026/05/09 19:40:02 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.487ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'concurrent_manager@test.com' ORDER BY "users"."id" LIMIT 1
-[GIN] 2026/05/09 - 19:40:02 | 201 |   5.21ms |                 | POST     "/api/v1/teams/"
+2026/05/09 20:09:56 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.916ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member1@test.com' ORDER BY "users"."id" LIMIT 1
 
-2026/05/09 19:40:02 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.828ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member0@test.com' ORDER BY "users"."id" LIMIT 1
+2026/05/09 20:09:56 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.757ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member2@test.com' ORDER BY "users"."id" LIMIT 1
 
-2026/05/09 19:40:02 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.750ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member1@test.com' ORDER BY "users"."id" LIMIT 1
+2026/05/09 20:09:56 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.965ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member3@test.com' ORDER BY "users"."id" LIMIT 1
 
-2026/05/09 19:40:02 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.764ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member2@test.com' ORDER BY "users"."id" LIMIT 1
+2026/05/09 20:09:56 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.651ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member4@test.com' ORDER BY "users"."id" LIMIT 1
 
-2026/05/09 19:40:02 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.575ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member3@test.com' ORDER BY "users"."id" LIMIT 1
+2026/05/09 20:09:56 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.657ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member5@test.com' ORDER BY "users"."id" LIMIT 1
 
-2026/05/09 19:40:02 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.821ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member4@test.com' ORDER BY "users"."id" LIMIT 1
+2026/05/09 20:09:56 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.809ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member6@test.com' ORDER BY "users"."id" LIMIT 1
 
-2026/05/09 19:40:02 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.749ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member5@test.com' ORDER BY "users"."id" LIMIT 1
+2026/05/09 20:09:56 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.765ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member7@test.com' ORDER BY "users"."id" LIMIT 1
 
-2026/05/09 19:40:02 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.688ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member6@test.com' ORDER BY "users"."id" LIMIT 1
+2026/05/09 20:09:57 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.744ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member8@test.com' ORDER BY "users"."id" LIMIT 1
 
-2026/05/09 19:40:02 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.764ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member7@test.com' ORDER BY "users"."id" LIMIT 1
+2026/05/09 20:09:57 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.770ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member9@test.com' ORDER BY "users"."id" LIMIT 1
 
-2026/05/09 19:40:02 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.964ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member8@test.com' ORDER BY "users"."id" LIMIT 1
+2026/05/09 20:09:57 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.937ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member10@test.com' ORDER BY "users"."id" LIMIT 1
 
-2026/05/09 19:40:02 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.837ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member9@test.com' ORDER BY "users"."id" LIMIT 1
+2026/05/09 20:09:57 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.461ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member11@test.com' ORDER BY "users"."id" LIMIT 1
 
-2026/05/09 19:40:02 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[1.033ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member10@test.com' ORDER BY "users"."id" LIMIT 1
+2026/05/09 20:09:57 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.727ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member12@test.com' ORDER BY "users"."id" LIMIT 1
 
-2026/05/09 19:40:02 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.804ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member11@test.com' ORDER BY "users"."id" LIMIT 1
+2026/05/09 20:09:57 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.641ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member13@test.com' ORDER BY "users"."id" LIMIT 1
 
-2026/05/09 19:40:02 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.422ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member12@test.com' ORDER BY "users"."id" LIMIT 1
+2026/05/09 20:09:57 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.773ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member14@test.com' ORDER BY "users"."id" LIMIT 1
 
-2026/05/09 19:40:02 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.797ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member13@test.com' ORDER BY "users"."id" LIMIT 1
+2026/05/09 20:09:57 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.796ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member15@test.com' ORDER BY "users"."id" LIMIT 1
 
-2026/05/09 19:40:03 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.871ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member14@test.com' ORDER BY "users"."id" LIMIT 1
+2026/05/09 20:09:57 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[1.098ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member16@test.com' ORDER BY "users"."id" LIMIT 1
 
-2026/05/09 19:40:03 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.621ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member15@test.com' ORDER BY "users"."id" LIMIT 1
+2026/05/09 20:09:57 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.368ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member17@test.com' ORDER BY "users"."id" LIMIT 1
 
-2026/05/09 19:40:03 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.745ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member16@test.com' ORDER BY "users"."id" LIMIT 1
+2026/05/09 20:09:57 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.660ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member18@test.com' ORDER BY "users"."id" LIMIT 1
 
-2026/05/09 19:40:03 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.749ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member17@test.com' ORDER BY "users"."id" LIMIT 1
+2026/05/09 20:09:57 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.549ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member19@test.com' ORDER BY "users"."id" LIMIT 1
 
-2026/05/09 19:40:03 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.724ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member18@test.com' ORDER BY "users"."id" LIMIT 1
+2026/05/09 20:09:57 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.827ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member20@test.com' ORDER BY "users"."id" LIMIT 1
 
-2026/05/09 19:40:03 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.780ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member19@test.com' ORDER BY "users"."id" LIMIT 1
+2026/05/09 20:09:57 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.684ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member21@test.com' ORDER BY "users"."id" LIMIT 1
 
-2026/05/09 19:40:03 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.803ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member20@test.com' ORDER BY "users"."id" LIMIT 1
+2026/05/09 20:09:57 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.850ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member22@test.com' ORDER BY "users"."id" LIMIT 1
 
-2026/05/09 19:40:03 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.755ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member21@test.com' ORDER BY "users"."id" LIMIT 1
+2026/05/09 20:09:58 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.751ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member23@test.com' ORDER BY "users"."id" LIMIT 1
 
-2026/05/09 19:40:03 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.872ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member22@test.com' ORDER BY "users"."id" LIMIT 1
+2026/05/09 20:09:58 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.786ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member24@test.com' ORDER BY "users"."id" LIMIT 1
 
-2026/05/09 19:40:03 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.696ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member23@test.com' ORDER BY "users"."id" LIMIT 1
+2026/05/09 20:09:58 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.444ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member25@test.com' ORDER BY "users"."id" LIMIT 1
 
-2026/05/09 19:40:03 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[1.016ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member24@test.com' ORDER BY "users"."id" LIMIT 1
+2026/05/09 20:09:58 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.480ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member26@test.com' ORDER BY "users"."id" LIMIT 1
 
-2026/05/09 19:40:03 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.796ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member25@test.com' ORDER BY "users"."id" LIMIT 1
+2026/05/09 20:09:58 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.353ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member27@test.com' ORDER BY "users"."id" LIMIT 1
 
-2026/05/09 19:40:03 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.720ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member26@test.com' ORDER BY "users"."id" LIMIT 1
+2026/05/09 20:09:58 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.378ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member28@test.com' ORDER BY "users"."id" LIMIT 1
 
-2026/05/09 19:40:03 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.823ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member27@test.com' ORDER BY "users"."id" LIMIT 1
+2026/05/09 20:09:58 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[1.023ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member29@test.com' ORDER BY "users"."id" LIMIT 1
 
-2026/05/09 19:40:03 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[1.018ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member28@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:04 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.710ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member29@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:04 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.732ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member30@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:04 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[1.103ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member31@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:04 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.824ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member32@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:04 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.705ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member33@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:04 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.839ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member34@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:04 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.959ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member35@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:04 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.887ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member36@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:04 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.535ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member37@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:04 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.575ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member38@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:04 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.788ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member39@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:04 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.775ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member40@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:04 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.882ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member41@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:04 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.842ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member42@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:04 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.870ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member43@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:04 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.444ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member44@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:05 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.357ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member45@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:05 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.685ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member46@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:05 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.475ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member47@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:05 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.847ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member48@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:05 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.977ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member49@test.com' ORDER BY "users"."id" LIMIT 1
-[GIN] 2026/05/09 - 19:40:05 | 200 |  66.75ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 |  81.64ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 |  86.69ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 |  90.21ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 |  92.98ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 |  95.52ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 |  97.03ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 |  99.91ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 100.66ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 104.11ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 105.81ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 |  106.6ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 108.62ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 112.63ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 113.77ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 117.16ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 119.34ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 121.06ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 124.17ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 126.05ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 |  129.4ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 133.34ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 |  135.8ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 |  138.6ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 140.29ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 143.88ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 145.79ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 149.52ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 153.24ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 157.22ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 160.76ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 161.71ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 |  164.7ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 166.29ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 170.17ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 172.68ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 174.22ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 176.46ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 179.01ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 182.39ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 182.79ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 186.45ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 189.03ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 191.18ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 194.14ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 196.44ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 198.32ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 201.34ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 203.57ms |                 | POST     "/api/v1/teams/2/members"
-[GIN] 2026/05/09 - 19:40:05 | 200 | 206.75ms |                 | POST     "/api/v1/teams/2/members"
-
-2026/05/09 19:40:05 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.868ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'testregister@test.com' ORDER BY "users"."id" LIMIT 1
-[GIN] 2026/05/09 - 19:40:05 | 201 |  74.64ms |                 | POST     "/api/v1/auth/register"
-[GIN] 2026/05/09 - 19:40:05 | 400 | 557.709µs |                 | POST     "/api/v1/auth/register"
-[GIN] 2026/05/09 - 19:40:05 | 200 |  60.99ms |                 | POST     "/api/v1/auth/login"
-[GIN] 2026/05/09 - 19:40:05 | 401 |  61.11ms |                 | POST     "/api/v1/auth/login"
---- FAIL: TestUserRegistrationAndLogin (0.20s)
-    --- FAIL: TestUserRegistrationAndLogin/Success_-_Register_user (0.07s)
-        user_api_test.go:32: 
-            	Error Trace:	/Users/mthang1201/Documents/seta/seta-training/tests/integration/user_api_test.go:32
-            	Error:      	Should not be zero, but was <nil>
-            	Test:       	TestUserRegistrationAndLogin/Success_-_Register_user
-
-2026/05/09 19:40:05 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.583ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'import_manager@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:05 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.727ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'regular_user@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:05 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.721ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'imported2@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:05 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[2.460ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'imported1@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:06 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[24.595ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'imported3@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:06 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[24.594ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'imported5@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:06 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[28.235ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'imported4@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:06 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.941ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'imported6@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:06 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.630ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'imported7@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:06 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.628ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'imported8@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:06 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.688ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'imported9@test.com' ORDER BY "users"."id" LIMIT 1
-
-2026/05/09 19:40:06 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
-[0m[33m[0.584ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'imported10@test.com' ORDER BY "users"."id" LIMIT 1
-[GIN] 2026/05/09 - 19:40:06 | 200 | 180.14ms |                 | POST     "/api/v1/users/import"
-[GIN] 2026/05/09 - 19:40:06 | 403 |   25.5µs |                 | POST     "/api/v1/users/import"
+2026/05/09 20:09:58 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.870ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member30@test.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:09:58 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.799ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member31@test.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:09:58 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.861ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member32@test.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:09:58 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.764ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member33@test.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:09:58 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.705ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member34@test.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:09:58 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.647ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member35@test.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:09:58 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.602ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member36@test.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:09:58 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.763ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member37@test.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:09:58 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.848ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member38@test.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:09:59 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.698ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member39@test.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:09:59 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.548ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member40@test.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:09:59 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.632ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member41@test.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:09:59 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[1.850ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member42@test.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:09:59 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[1.272ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member43@test.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:09:59 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.738ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member44@test.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:09:59 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.923ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member45@test.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:09:59 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.787ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member46@test.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:09:59 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.576ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member47@test.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:09:59 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.921ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member48@test.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:09:59 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.951ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'member49@test.com' ORDER BY "users"."id" LIMIT 1
+[GIN] 2026/05/09 - 20:09:59 | 200 |  66.16ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 |  92.28ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 |  94.78ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 |  105.4ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 109.64ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 113.51ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 118.11ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 119.58ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 122.27ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 124.98ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 125.41ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 129.05ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 134.78ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 136.95ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 133.66ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 139.44ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 139.38ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 |  143.3ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 144.07ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 147.93ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 148.25ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 153.28ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 |  156.6ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 153.23ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 159.06ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 160.38ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 163.15ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 162.71ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 170.23ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 172.92ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 170.16ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 172.47ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 175.74ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 180.79ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 184.52ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 181.34ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 183.62ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 184.95ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 186.72ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 194.53ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 |  196.9ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 195.57ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 195.22ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 198.03ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 199.29ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 200.95ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 206.64ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 208.54ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 209.52ms |                 | POST     "/api/v1/teams/3/members"
+[GIN] 2026/05/09 - 20:09:59 | 200 | 210.11ms |                 | POST     "/api/v1/teams/3/members"
+
+2026/05/09 20:09:59 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.812ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'testregister@test.com' ORDER BY "users"."id" LIMIT 1
+[GIN] 2026/05/09 - 20:10:00 | 201 |  63.88ms |                 | POST     "/api/v1/auth/register"
+[GIN] 2026/05/09 - 20:10:00 | 400 | 422.125µs |                 | POST     "/api/v1/auth/register"
+[GIN] 2026/05/09 - 20:10:00 | 200 |  59.82ms |                 | POST     "/api/v1/auth/login"
+[GIN] 2026/05/09 - 20:10:00 | 401 |  59.26ms |                 | POST     "/api/v1/auth/login"
+
+2026/05/09 20:10:00 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.517ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'import_manager@test.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:10:00 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[1.128ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'regular_user@test.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:10:00 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.940ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'imported1@test.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:10:00 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[16.661ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'imported2@test.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:10:00 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[23.491ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'imported5@test.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:10:00 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[23.542ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'imported3@test.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:10:00 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[23.497ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'imported4@test.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:10:00 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.696ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'imported6@test.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:10:00 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.651ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'imported7@test.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:10:00 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.548ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'imported8@test.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:10:00 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.485ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'imported9@test.com' ORDER BY "users"."id" LIMIT 1
+
+2026/05/09 20:10:00 [31;1m/Users/mthang1201/Documents/seta/seta-training/internal/repository/user_repository.go:24 [35;1mrecord not found
+[0m[33m[0.547ms] [34;1m[rows:0][0m SELECT * FROM "users" WHERE email = 'imported10@test.com' ORDER BY "users"."id" LIMIT 1
+[GIN] 2026/05/09 - 20:10:00 | 200 | 163.81ms |                 | POST     "/api/v1/users/import"
+[GIN] 2026/05/09 - 20:10:00 | 403 | 38.167µs |                 | POST     "/api/v1/users/import"
 FAIL
-FAIL	github.com/seta-training/core/tests/integration	13.557s
+FAIL	github.com/seta-training/core/tests/integration	23.532s
 FAIL
