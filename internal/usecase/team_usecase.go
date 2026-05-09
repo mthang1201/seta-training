@@ -3,19 +3,24 @@ package usecase
 import (
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/seta-training/core/internal/domain"
 )
 
 type teamUseCase struct {
-	teamRepo domain.TeamRepository
-	userRepo domain.UserRepository
+	teamRepo  domain.TeamRepository
+	userRepo  domain.UserRepository
+	cache     domain.Cache
+	publisher domain.EventPublisher
 }
 
-func NewTeamUseCase(teamRepo domain.TeamRepository, userRepo domain.UserRepository) domain.TeamUseCase {
+func NewTeamUseCase(teamRepo domain.TeamRepository, userRepo domain.UserRepository, cache domain.Cache, publisher domain.EventPublisher) domain.TeamUseCase {
 	return &teamUseCase{
-		teamRepo: teamRepo,
-		userRepo: userRepo,
+		teamRepo:  teamRepo,
+		userRepo:  userRepo,
+		cache:     cache,
+		publisher: publisher,
 	}
 }
 
@@ -47,6 +52,13 @@ func (u *teamUseCase) CreateTeam(ctx context.Context, req *domain.CreateTeamRequ
 		return nil, err
 	}
 
+	// Publish Event
+	_ = u.publisher.PublishTeamEvent(ctx, domain.EventTeamCreated, map[string]interface{}{
+		"teamId":   team.ID,
+		"teamName": team.Name,
+		"ownerId":  requesterID,
+	})
+
 	return team, nil
 }
 
@@ -72,7 +84,19 @@ func (u *teamUseCase) AddMember(ctx context.Context, teamID, userID, requesterID
 		return errors.New("user not found")
 	}
 
-	return u.teamRepo.AddMember(ctx, teamID, userID)
+	err = u.teamRepo.AddMember(ctx, teamID, userID)
+	if err == nil {
+		_ = u.publisher.PublishTeamEvent(ctx, domain.EventMemberAdded, map[string]interface{}{
+			"teamId": teamID,
+			"userId": userID,
+		})
+		_ = u.cache.Delete(ctx, u.memberTeamsCacheKey(userID))
+	}
+	return err
+}
+
+func (u *teamUseCase) memberTeamsCacheKey(userID uint) string {
+	return fmt.Sprintf("user_teams:%d", userID)
 }
 
 func (u *teamUseCase) RemoveMember(ctx context.Context, teamID, userID, requesterID uint) error {
@@ -88,7 +112,16 @@ func (u *teamUseCase) RemoveMember(ctx context.Context, teamID, userID, requeste
 		return errors.New("only team managers can remove members")
 	}
 
-	return u.teamRepo.RemoveMember(ctx, teamID, userID)
+	err = u.teamRepo.RemoveMember(ctx, teamID, userID)
+	if err == nil {
+		_ = u.publisher.PublishTeamEvent(ctx, domain.EventMemberRemoved, map[string]interface{}{
+			"teamId": teamID,
+			"userId": userID,
+		})
+		// invalidation
+		_ = u.cache.Delete(ctx, u.memberTeamsCacheKey(userID))
+	}
+	return err
 }
 
 func (u *teamUseCase) AddManager(ctx context.Context, teamID, userID, requesterID uint) error {
@@ -115,7 +148,16 @@ func (u *teamUseCase) AddManager(ctx context.Context, teamID, userID, requesterI
 		return errors.New("only users with 'manager' role can be added as team managers")
 	}
 
-	return u.teamRepo.AddManager(ctx, teamID, userID)
+	err = u.teamRepo.AddManager(ctx, teamID, userID)
+	if err == nil {
+		_ = u.publisher.PublishTeamEvent(ctx, domain.EventMemberAdded, map[string]interface{}{
+			"teamId": teamID,
+			"userId": userID,
+			"role":   "manager",
+		})
+		_ = u.cache.Delete(ctx, u.memberTeamsCacheKey(userID))
+	}
+	return err
 }
 
 func (u *teamUseCase) RemoveManager(ctx context.Context, teamID, userID, requesterID uint) error {
@@ -135,5 +177,14 @@ func (u *teamUseCase) RemoveManager(ctx context.Context, teamID, userID, request
 		return errors.New("main manager cannot remove themselves")
 	}
 
-	return u.teamRepo.RemoveManager(ctx, teamID, userID)
+	err = u.teamRepo.RemoveManager(ctx, teamID, userID)
+	if err == nil {
+		_ = u.publisher.PublishTeamEvent(ctx, domain.EventMemberRemoved, map[string]interface{}{
+			"teamId": teamID,
+			"userId": userID,
+			"role":   "manager",
+		})
+		_ = u.cache.Delete(ctx, u.memberTeamsCacheKey(userID))
+	}
+	return err
 }

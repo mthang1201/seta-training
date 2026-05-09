@@ -11,9 +11,11 @@ type Config struct {
 	DBPort     string
 	DBUser     string
 	DBPassword string
-	DBName     string
-	JWTSecret  string
-	Port       string
+	DBName      string
+	JWTSecret   string
+	Port        string
+	RedisURL    string
+	RabbitMQURL string
 }
 
 func LoadConfig() (*Config, error) {
@@ -24,9 +26,11 @@ func LoadConfig() (*Config, error) {
 		DBPort:     getEnv("DB_PORT", "5434"),
 		DBUser:     getEnv("DB_USER", "postgres"),
 		DBPassword: getEnv("DB_PASSWORD", "postgres"),
-		DBName:     getEnv("DB_NAME", "seta_training"),
-		JWTSecret:  getEnv("JWT_SECRET", "super-secret-key"),
-		Port:       getEnv("PORT", "3000"),
+		DBName:      getEnv("DB_NAME", "seta_training"),
+		JWTSecret:   getEnv("JWT_SECRET", "super-secret-key"),
+		Port:        getEnv("PORT", "3000"),
+		RedisURL:    getEnv("REDIS_URL", "redis://localhost:6379/0"),
+		RabbitMQURL: getEnv("RABBITMQ_URL", "amqp://guest:guest@localhost:5672/"),
 	}
 
 	return cfg, nil

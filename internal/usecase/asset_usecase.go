@@ -2,7 +2,10 @@ package usecase
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
+	"fmt"
+	"time"
 
 	"github.com/seta-training/core/internal/domain"
 )
@@ -10,15 +13,29 @@ import (
 type assetUseCase struct {
 	assetRepo domain.AssetRepository
 	teamRepo  domain.TeamRepository
+	cache     domain.Cache
+	publisher domain.EventPublisher
 }
 
-func NewAssetUseCase(assetRepo domain.AssetRepository, teamRepo domain.TeamRepository) domain.AssetUseCase {
-	return &assetUseCase{assetRepo: assetRepo, teamRepo: teamRepo}
+func NewAssetUseCase(assetRepo domain.AssetRepository, teamRepo domain.TeamRepository, cache domain.Cache, publisher domain.EventPublisher) domain.AssetUseCase {
+	return &assetUseCase{
+		assetRepo: assetRepo,
+		teamRepo:  teamRepo,
+		cache:     cache,
+		publisher: publisher,
+	}
 }
 
 // Check if requester has read access
 func (u *assetUseCase) canReadAsset(ctx context.Context, assetType domain.AssetType, assetID uint, ownerID uint, requesterID uint) (bool, error) {
 	if requesterID == ownerID {
+		return true, nil
+	}
+
+	// Check ACL Cache
+	aclCacheKey := fmt.Sprintf("asset:%s:%d:acl:%d", assetType, assetID, requesterID)
+	cachedAcl, _ := u.cache.Get(ctx, aclCacheKey)
+	if cachedAcl == "read" || cachedAcl == "write" {
 		return true, nil
 	}
 
@@ -28,6 +45,7 @@ func (u *assetUseCase) canReadAsset(ctx context.Context, assetType domain.AssetT
 		return false, err
 	}
 	if perm != nil {
+		_ = u.cache.Set(ctx, aclCacheKey, string(perm.AccessLevel), 5*time.Minute)
 		return true, nil
 	}
 
@@ -50,10 +68,25 @@ func (u *assetUseCase) canReadAsset(ctx context.Context, assetType domain.AssetT
 
 	// Manager Oversight
 	// Managers have read-only access to assets owned by their team members.
-	teams, err := u.teamRepo.GetTeamsByMemberID(ctx, ownerID)
-	if err != nil {
-		return false, err
+	// Try to get from cache first
+	cacheKey := fmt.Sprintf("user_teams:%d", ownerID)
+	var teams []*domain.Team
+	cachedData, err := u.cache.Get(ctx, cacheKey)
+	if err == nil && cachedData != "" {
+		_ = json.Unmarshal([]byte(cachedData), &teams)
 	}
+
+	if len(teams) == 0 {
+		teams, err = u.teamRepo.GetTeamsByMemberID(ctx, ownerID)
+		if err != nil {
+			return false, err
+		}
+		// Set to cache
+		if data, err := json.Marshal(teams); err == nil {
+			_ = u.cache.Set(ctx, cacheKey, string(data), 10*time.Minute)
+		}
+	}
+
 	for _, team := range teams {
 		for _, mgr := range team.Managers {
 			if mgr.ID == requesterID {
@@ -71,12 +104,20 @@ func (u *assetUseCase) canWriteAsset(ctx context.Context, assetType domain.Asset
 		return true, nil
 	}
 
+	// Check ACL Cache
+	aclCacheKey := fmt.Sprintf("asset:%s:%d:acl:%d", assetType, assetID, requesterID)
+	cachedAcl, _ := u.cache.Get(ctx, aclCacheKey)
+	if cachedAcl == "write" {
+		return true, nil
+	}
+
 	// Direct permission
 	perm, err := u.assetRepo.GetPermission(ctx, assetType, assetID, requesterID)
 	if err != nil {
 		return false, err
 	}
 	if perm != nil && perm.AccessLevel == domain.AccessWrite {
+		_ = u.cache.Set(ctx, aclCacheKey, string(perm.AccessLevel), 5*time.Minute)
 		return true, nil
 	}
 
@@ -108,6 +149,13 @@ func (u *assetUseCase) CreateFolder(ctx context.Context, name string, ownerID ui
 	if err := u.assetRepo.CreateFolder(ctx, folder); err != nil {
 		return nil, err
 	}
+
+	_ = u.publisher.PublishAssetEvent(ctx, domain.EventAssetCreated, map[string]interface{}{
+		"assetType": "folder",
+		"assetId":   folder.ID,
+		"ownerId":   ownerID,
+	})
+
 	return folder, nil
 }
 
@@ -136,6 +184,13 @@ func (u *assetUseCase) CreateNote(ctx context.Context, folderID uint, title, con
 	if err := u.assetRepo.CreateNote(ctx, note); err != nil {
 		return nil, err
 	}
+
+	_ = u.publisher.PublishAssetEvent(ctx, domain.EventAssetCreated, map[string]interface{}{
+		"assetType": "note",
+		"assetId":   note.ID,
+		"ownerId":   requesterID,
+	})
+
 	return note, nil
 }
 
@@ -154,6 +209,12 @@ func (u *assetUseCase) GetFolder(ctx context.Context, folderID uint, requesterID
 	}
 	if !canRead {
 		return nil, errors.New("forbidden: read access required")
+	}
+
+	// Cache asset metadata
+	cacheKey := fmt.Sprintf("asset:folder:%d", folderID)
+	if data, err := json.Marshal(folder); err == nil {
+		_ = u.cache.Set(ctx, cacheKey, string(data), 30*time.Minute)
 	}
 
 	return folder, nil
@@ -179,6 +240,12 @@ func (u *assetUseCase) GetNote(ctx context.Context, noteID uint, requesterID uin
 	}
 	if !canRead {
 		return nil, errors.New("forbidden: read access required")
+	}
+
+	// Cache asset metadata
+	cacheKey := fmt.Sprintf("asset:note:%d", noteID)
+	if data, err := json.Marshal(note); err == nil {
+		_ = u.cache.Set(ctx, cacheKey, string(data), 30*time.Minute)
 	}
 
 	return note, nil
@@ -212,6 +279,14 @@ func (u *assetUseCase) UpdateNote(ctx context.Context, noteID uint, title, conte
 		return nil, err
 	}
 
+	_ = u.publisher.PublishAssetEvent(ctx, domain.EventAssetUpdated, map[string]interface{}{
+		"assetType": "note",
+		"assetId":   note.ID,
+	})
+
+	// Invalidate cache
+	_ = u.cache.Delete(ctx, fmt.Sprintf("asset:note:%d", note.ID))
+
 	return note, nil
 }
 
@@ -244,7 +319,18 @@ func (u *assetUseCase) ShareAsset(ctx context.Context, req *domain.ShareAssetReq
 		AccessLevel: req.AccessLevel,
 	}
 
-	return u.assetRepo.SetPermission(ctx, perm)
+	err := u.assetRepo.SetPermission(ctx, perm)
+	if err == nil {
+		// Invalidate ACL cache
+		_ = u.cache.Delete(ctx, fmt.Sprintf("asset:%s:%d:acl:%d", req.AssetType, req.AssetID, req.TargetUserID))
+		
+		_ = u.publisher.PublishAssetEvent(ctx, domain.EventAssetShared, map[string]interface{}{
+			"assetType": req.AssetType,
+			"assetId":   req.AssetID,
+			"targetUser": req.TargetUserID,
+		})
+	}
+	return err
 }
 
 func (u *assetUseCase) RevokeAccess(ctx context.Context, assetType domain.AssetType, assetID, targetUserID, requesterID uint) error {
@@ -269,5 +355,17 @@ func (u *assetUseCase) RevokeAccess(ctx context.Context, assetType domain.AssetT
 		return errors.New("only owner can revoke access")
 	}
 
-	return u.assetRepo.RemovePermission(ctx, assetType, assetID, targetUserID)
+	err := u.assetRepo.RemovePermission(ctx, assetType, assetID, targetUserID)
+	if err == nil {
+		// Invalidate ACL cache
+		_ = u.cache.Delete(ctx, fmt.Sprintf("asset:%s:%d:acl:%d", assetType, assetID, targetUserID))
+
+		_ = u.publisher.PublishAssetEvent(ctx, domain.EventAssetShared, map[string]interface{}{
+			"assetType": assetType,
+			"assetId":   assetID,
+			"action":    "revoked",
+			"targetUser": targetUserID,
+		})
+	}
+	return err
 }

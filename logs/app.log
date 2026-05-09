@@ -1,0 +1,4 @@
+{"time":"2026-05-09T09:48:19.715637464Z","level":"INFO","msg":"Starting application..."}
+{"time":"2026-05-09T09:48:19.719971047Z","level":"INFO","msg":"Failed to connect to database: failed to connect to `user=postgres database=seta_training`: 172.19.0.8:5432 (db): dial error: dial tcp 172.19.0.8:5432: connect: connection refused"}
+{"time":"2026-05-09T16:48:42.716378+07:00","level":"INFO","msg":"Starting application..."}
+{"time":"2026-05-09T16:48:42.927048+07:00","level":"INFO","msg":"Starting server","port":"3000"}

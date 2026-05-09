@@ -11,6 +11,8 @@ This repository contains a robust backend system built for managing Users, Teams
 | **Core** | **Go (Golang)** | Designed for high concurrency (goroutines) and cloud-native performance. | More boilerplate (error handling) than high-level languages. |
 | **Framework**| **Gin** | Lightweight, high-performance, and provides a great developer experience. | Not part of the standard library. |
 | **Database** | **PostgreSQL** | Reliable relational storage for users, teams, and asset hierarchies. | Complex schema migrations compared to NoSQL. |
+| **Cache** | **Redis** | In-memory cache for fast team members retrieval, asset metadata, and ACL lookups. | Data volatility (requires fallback to DB). |
+| **Message Broker** | **RabbitMQ** | Chosen over Kafka because of simpler deployment, native routing (Exchanges/Routing Keys), and lower operational overhead for our lightweight domain events. | Lower throughput ceiling compared to Kafka. |
 | **Auth** | **JWT + Bcrypt** | Stateless authentication and secure password hashing. | Revoking individual tokens requires a blacklist mechanism (Redis). |
 | **Docs** | **Swagger (Swaggo)** | Automated API documentation generation from code comments. | Maintenance overhead for keeping comments in sync. |
 | **Monitoring** | **Prometheus** | Real-time metrics collection via the `/metrics` endpoint. | Time-series data can grow quickly in storage. |
@@ -83,4 +85,4 @@ curl -X POST http://localhost:3000/api/v1/users/import \
 - `[x]` **Stage 1:** Identity & Teams (Auth, RBAC, Team Management).
 - `[x]` **Stage 2:** Domain & Concurrency (Folders, Notes, Sharing, Bulk Import).
 - `[x]` **Stage 3:** Observability (Metrics, Logging, Visualization).
-- `[ ]` **Stage 4 (Next):** Scaling (Message Queues, Redis Caching).
+- `[x]` **Stage 4:** Scaling (Message Queues, Redis Caching, Dockerization).
