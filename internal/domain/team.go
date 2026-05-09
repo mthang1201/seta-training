@@ -33,5 +33,5 @@ type TeamUseCase interface {
 }
 
 type CreateTeamRequest struct {
-	Name string `json:"teamName"`
+	Name string `json:"teamName" binding:"required"`
 }
