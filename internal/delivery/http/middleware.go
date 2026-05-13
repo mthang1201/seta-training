@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
-	"github.com/seta-training/core/internal/config"
+	"github.com/seta-training/internal/config"
 )
 
 func RequestIDMiddleware() gin.HandlerFunc {

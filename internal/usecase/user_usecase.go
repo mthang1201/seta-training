@@ -11,8 +11,8 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/seta-training/core/internal/config"
-	"github.com/seta-training/core/internal/domain"
+	"github.com/seta-training/internal/config"
+	"github.com/seta-training/internal/domain"
 	"golang.org/x/crypto/bcrypt"
 )
 

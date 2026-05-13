@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/seta-training/core/internal/config"
-	"github.com/seta-training/core/internal/domain"
+	"github.com/seta-training/internal/config"
+	"github.com/seta-training/internal/domain"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )

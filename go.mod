@@ -1,4 +1,4 @@
-module github.com/seta-training/core
+module github.com/seta-training
 
 go 1.25.0
 

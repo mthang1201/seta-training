@@ -5,8 +5,8 @@ import (
 	"time"
 
 	"github.com/redis/go-redis/v9"
-	"github.com/seta-training/core/internal/config"
-	"github.com/seta-training/core/internal/domain"
+	"github.com/seta-training/internal/config"
+	"github.com/seta-training/internal/domain"
 )
 
 type redisCache struct {

@@ -9,8 +9,8 @@ import (
 
 	"github.com/google/uuid"
 	amqp "github.com/rabbitmq/amqp091-go"
-	"github.com/seta-training/core/internal/config"
-	"github.com/seta-training/core/internal/domain"
+	"github.com/seta-training/internal/config"
+	"github.com/seta-training/internal/domain"
 )
 
 const (
